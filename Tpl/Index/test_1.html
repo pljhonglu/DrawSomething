@@ -1,0 +1,116 @@
+<!doctype html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>canvas涂鸦板</title>
+<meta name="Copyright" content="独奏" />
+<meta name="description" content="你画我猜,draw something,html5,小游戏" />
+<meta content="你画我猜,draw something,html5,小游戏" name="keywords" />
+<!--<script  type="text/javascript" src="../Public/js/myself/cavtools.js"></script>-->
+<script  type="text/javascript" src="../Public/js/myself/websocket.js"></script>
+<script type="text/javascript" src="../Public/js/myself/chat.js"></script>
+<script type="text/javascript" src="../Public/js/myself/paint.js"></script>
+
+<script  type="text/javascript" src="../Public/js/base.js"></script>
+<script  type="text/javascript" src="../Public/js/prototype.js"></script>
+<script  type="text/javascript" src="../Public/js/mootools.js"></script>
+<script  type="text/javascript" src="../Public/js/Ajax/ThinkAjax.js"></script>
+ <style>
+ *{margin:0;padding:0;}
+ .fa{width:740px;margin-left: 100px;}
+ .top{margin:10px 0;}
+ .top input{width:25px;height:25px;border:1px solid #fff;border-radius:4px;background:#ddd;}
+ .top .i1{background:#000000;}
+ .top .i2{background:#FF0000;}
+ .top .i3{background:#80FF00;}
+ .top .i4{background:#00FFFF;}
+ .top .i5{background:#808080;}
+ .top .i6{background:#FF8000;}
+ .top .i7{background:#408080;}
+ .top .i8{background:#8000FF;}
+ .top .i9{background:#CCCC00;}
+ #canvas{background:#eee;cursor:default;}
+ .font input{font-size:14px;}
+ .top .grea{background:#aaa;}
+ .tishi{height:30px;font-size:16px;border:1px solid #fff;border-radius:5px;padding-right:10px;padding-left: 10px;background:#ddd;}
+ .log {
+    word-wrap: break-word; /*设置中文换行*/
+    word-break : break-all;
+    /*设置垂直滚动条*/
+    overFlow-y:auto;scrollbar-shadow-color:#ffffff;
+    scrollbar-3dlight-color:#ffffff;scrollbar-arrow-color:#000000;scrollbar-track-color:#eff4f9;scrollbar-darkshadow-color:#c9d9f1;
+    
+	width:280px;height:330px;margin:0 auto;text-align:left;background-color: #CF3;border-top-width: 7px;border-bottom-width: 3px;border-top-style: solid;border-bottom-style: solid;}
+.msg {
+    width:230px;
+    height: 25px;
+	margin-top:10px;}
+.send{
+	min-width:55px;
+	min-height:30px;
+	margin-top:10px;}
+ .right{
+	-webkit-box-shadow:7px 5px 6px #000;
+	-moz-box-shadow:7px 5px 6px #000;
+	
+	width: 300px;
+	text-align:center;
+	position: absolute;
+	left: 880px;
+	top: 50px;
+	height: 420px;
+	background-color: #CF3;}
+ </style>
+</head>
+<body onLoad="websocket.init()">
+<div class="fa">
+<h2 align="center" style="margin-top:15px">你画我猜</h2>
+    <div class="top" id="top">
+ <!--       <div id="color">
+            请选择画笔颜色：
+            <input class="i1" type="button" value="" />
+            <input class="i2" type="button" value="" />
+            <input class="i3" type="button" value="" />
+            <input class="i4" type="button" value="" />
+            <input class="i5" type="button" value="" />
+            <input class="i6" type="button" value="" />
+            <input class="i7" type="button" value="" />
+            <input class="i8" type="button" value="" />
+            <input class="i9" type="button" value="" />
+        </div>
+        <div class="font" id="font">
+            请选择画笔的宽度：
+            <input type="button" value="细" class="grea"/>
+            <input type="button" value="中" />
+            <input type="button" value="粗" />
+        </div>
+        <div>
+            <span id="error">如果有错误，请使用橡皮擦：</span>
+            <input id="eraser" style="width:60px;font-size:14px;"type="button" value="橡皮擦" />
+        </div>
+        <input id="clear" type="button" value="清除画布" style="width:80px;"/>
+        <input id="imgurl" type="button" value="导出图片路径" style="width:80px;"/>
+-->
+    </div>
+    <div id="quesDiv">
+ <!--       您本次的题目是：<input class="tishi" id="question" type="button" value="火车">
+ -->  
+    </div>
+    <canvas style="" id="canvas" width="740" height="420">您的浏览器不支持 canvas 标签</canvas>
+    
+    <div class="right">
+        <h3 align="center" style="margin-top:10px">即时聊天</h3>
+        <div class="log" id="log"></div>
+        <input id="msg" class="msg" type="textbox" onKeyPress="chat.onkey(event)"/>
+        <button class="send" onClick="chat.send_Msg()">发送</button>
+    </div>
+</div>
+<div id="html">
+
+</div>
+<script>
+    paint.init();
+</script>
+<br><br>
+
+</body>
+</html>

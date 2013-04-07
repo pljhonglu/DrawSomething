@@ -1,0 +1,134 @@
+<!doctype html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>canvas涂鸦板</title>
+<meta name="Copyright" content="独奏" />
+<meta name="description" content="你画我猜,draw something,html5,小游戏" />
+<meta content="你画我猜,draw something,html5,小游戏" name="keywords" />
+<script  type="text/javascript" src="../Public/js/myself/cavtools.js"></script>
+
+ <style>
+ *{margin:0;padding:0;}
+ .fa{width:740px;margin-left: 100px;}
+ .top{margin:20px 0;}
+ .top input{width:25px;height:25px;border:1px solid #fff;border-radius:4px;background:#ddd;}
+ .top .i1{background:#000000;}
+ .top .i2{background:#FF0000;}
+ .top .i3{background:#80FF00;}
+ .top .i4{background:#00FFFF;}
+ .top .i5{background:#808080;}
+ .top .i6{background:#FF8000;}
+ .top .i7{background:#408080;}
+ .top .i8{background:#8000FF;}
+ .top .i9{background:#CCCC00;}
+ #canvas{background:#eee;cursor:default;}
+ .font input{font-size:14px;}
+ .top .grea{background:#aaa;}
+.log {
+	width:280px;
+	height:350px;
+	border:4px solid #7F9DB9;
+}
+.msg {
+	width:230px;
+	height: 25px;
+}
+.send{
+	width:50px;
+	height: 20px;
+}
+ .right{
+	width: 300px;
+	position: absolute;
+	left: 880px;
+	top: 140px;
+	height: 420px;
+	background-color: #FF0;
+}
+ </style>
+</head>
+<body>
+<div class="fa">
+    <div class="top">
+        <div id="color">
+            请选择画笔颜色：
+            <input class="i1" type="button" value="" />
+            <input class="i2" type="button" value="" />
+            <input class="i3" type="button" value="" />
+            <input class="i4" type="button" value="" />
+            <input class="i5" type="button" value="" />
+            <input class="i6" type="button" value="" />
+            <input class="i7" type="button" value="" />
+            <input class="i8" type="button" value="" />
+            <input class="i9" type="button" value="" />
+        </div>
+        <div class="font" id="font">
+            请选择画笔的宽度：
+            <input type="button" value="细" class="grea"/>
+            <input type="button" value="中" />
+            <input type="button" value="粗" />
+        </div>
+        <div>
+            <span id="error">如果有错误，请使用橡皮擦：</span>
+            <input id="eraser" style="width:60px;font-size:14px;"type="button" value="橡皮擦" />
+        </div>
+  <input id="clear" type="button" value="清除画布" style="width:80px;"/>
+  <input id="imgurl" type="button" value="导出图片路径" style="width:80px;"/>
+  </div>
+    <canvas style="cursor:crosshair;" id="canvas" width="740" height="420">您的浏览器不支持 canvas 标签</canvas>
+<div class="right">
+<h3>WebSocket v2.00</h3>
+ <div class="log"></div>
+ <input class="msg" type="textbox" onkeypress="onkey(event)"/>
+ <button class="send" onclick="send()">Send</button>
+</div>
+</div>
+
+<script>
+    var paint={
+        init:function()
+        {
+            this.load();
+        },
+		$:function(id)		//判断参数id的类型，并返回相应对象
+		{
+			return typeof id=="string"?document.getElementById(id):id;
+		},
+        load:function()
+        {   
+            this.canvas=this.$("canvas");
+            if (this.canvas.getContext) {
+            } else {
+                alert("您的浏览器不支持 canvas 标签");
+                return;
+            }
+            this.cxt=this.canvas.getContext('2d');
+			MyCanvas.init(this.canvas,this.cxt);
+
+			this.imgurl=this.$("imgurl");//导出图片路径按钮
+            this.touch =("createTouch" in document);//判定是否为手持设备
+            this.StartEvent = this.touch ? "touchstart" : "mousedown";//支持触摸式使用相应的事件替代
+			this.MoveEvent = this.touch ? "touchmove" : "mousemove";
+			this.EndEvent = this.touch ? "touchend" : "mouseup";
+			this.bind();
+        },
+        bind:function()
+        {
+            this.imgurl.onclick=function()
+            {
+                MyCanvas.getUrl();
+			};
+        },
+		preventDefault:function(e){
+            /*阻止默认*/
+            var touch=this.touch ? e.touches[0] : e;
+			if(this.touch)touch.preventDefault();
+			else window.event.returnValue = false;
+		},
+    };
+    paint.init();
+</script>
+<br><br>
+
+</body>
+</html>
